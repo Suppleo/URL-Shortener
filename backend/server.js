@@ -33,52 +33,64 @@ const urlSchema = new mongoose.Schema({
 
 const Url = mongoose.model("Url", urlSchema);
 
-app.post("/api/shorten", async (req, res) => {
-  const { url } = req.body;
-  const shortUrl = shortid.generate();
+app.post(
+  "https://url-shortener-9o0q.onrender.com/api/shorten",
+  async (req, res) => {
+    const { url } = req.body;
+    const shortUrl = shortid.generate();
 
-  const newUrl = new Url({
-    originalUrl: url,
-    shortUrl: shortUrl,
-  });
+    const newUrl = new Url({
+      originalUrl: url,
+      shortUrl: shortUrl,
+    });
 
-  await newUrl.save();
+    await newUrl.save();
 
-  res.json({ shortUrl: shortUrl });
-});
-
-app.get("/thach.lalala/:shortUrl", async (req, res) => {
-  const { shortUrl } = req.params;
-  const url = await Url.findOne({ shortUrl });
-
-  if (url) {
-    url.clicks += 1;
-    await url.save();
-    res.redirect(url.originalUrl);
-  } else {
-    res.status(404).json("No URL found");
+    res.json({ shortUrl: shortUrl });
   }
-});
+);
 
-app.get("/api/urls", async (req, res) => {
-  try {
-    const urls = await Url.find();
-    res.json(urls);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching URLs" });
+app.get(
+  "https://url-shortener-9o0q.onrender.com/thach.lalala/:shortUrl",
+  async (req, res) => {
+    const { shortUrl } = req.params;
+    const url = await Url.findOne({ shortUrl });
+
+    if (url) {
+      url.clicks += 1;
+      await url.save();
+      res.redirect(url.originalUrl);
+    } else {
+      res.status(404).json("No URL found");
+    }
   }
-});
+);
+
+app.get(
+  "https://url-shortener-9o0q.onrender.com/api/urls",
+  async (req, res) => {
+    try {
+      const urls = await Url.find();
+      res.json(urls);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching URLs" });
+    }
+  }
+);
 
 // New route to delete a URL
-app.delete("/api/urls/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    await Url.findByIdAndDelete(id);
-    res.json({ message: "URL deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting URL" });
+app.delete(
+  "https://url-shortener-9o0q.onrender.com/api/urls/:id",
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      await Url.findByIdAndDelete(id);
+      res.json({ message: "URL deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting URL" });
+    }
   }
-});
+);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

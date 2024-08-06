@@ -26,7 +26,9 @@ function App() {
   const fetchUrls = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get<UrlData[]>("/api/urls");
+      const response = await axios.get<UrlData[]>(
+        "https://url-shortener-9o0q.onrender.com/api/urls"
+      );
       setUrls(response.data);
       setError(null);
     } catch (error) {
@@ -41,9 +43,12 @@ function App() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/shorten", {
-        url,
-      });
+      const response = await axios.post(
+        "https://url-shortener-9o0q.onrender.com/api/shorten",
+        {
+          url,
+        }
+      );
       setShortUrl(response.data.shortUrl);
       fetchUrls(); // Refresh the URL list
       setError(null);
@@ -65,7 +70,9 @@ function App() {
   const confirmDelete = async () => {
     if (urlToDelete) {
       try {
-        await axios.delete(`/api/urls/${urlToDelete}`);
+        await axios.delete(
+          `https://url-shortener-9o0q.onrender.com/api/urls/${urlToDelete}`
+        );
         fetchUrls(); // Refresh the URL list
         setError(null);
       } catch (error) {
@@ -110,7 +117,7 @@ function App() {
           <div className="mb-4">
             <h3>Shortened URL:</h3>
             <a
-              href={`/thach.lalala/${shortUrl}`}
+              href={`https://url-shortener-9o0q.onrender.com/thach.lalala/${shortUrl}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -138,7 +145,7 @@ function App() {
                     <td>{url.originalUrl}</td>
                     <td>
                       <a
-                        href={`/thach.lalala/${url.shortUrl}`}
+                        href={`https://url-shortener-9o0q.onrender.com/thach.lalala/${url.shortUrl}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
