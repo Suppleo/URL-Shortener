@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "http://localhost:5000",
-      "/thach.lalala": "http://localhost:5000",
+      "/api": "https://url-shortener-9o0q.onrender.com",
+      "/thach.lalala": "https://url-shortener-9o0q.onrender.com",
     },
   },
 });
