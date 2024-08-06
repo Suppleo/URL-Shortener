@@ -10,4 +10,5 @@ export default defineConfig({
       "/thach.lalala": "http://localhost:5000",
     },
   },
+  base: "/URL-Shortener/",
 });
