@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "https://url-shortener-ui.onrender.com/",
+    origin: "https://url-shortener-ui.onrender.com",
   })
 );
 app.use(express.json());
