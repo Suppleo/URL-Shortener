@@ -66,14 +66,21 @@ app.post("/api/shorten", async (req, res) => {
 
 app.get("/thach.lalala/:shortUrl", async (req, res) => {
   const { shortUrl } = req.params;
-  const url = await Url.findOne({ shortUrl });
+  try {
+    const url = await Url.findOne({ shortUrl });
+    if (url) {
+      // Increment the click counter
+      url.clicks += 1;
+      await url.save();
 
-  if (url) {
-    url.clicks += 1;
-    await url.save();
-    res.redirect(url.originalUrl);
-  } else {
-    res.status(404).json("No URL found");
+      // Redirect to the original URL
+      return res.redirect(url.originalUrl);
+    } else {
+      return res.status(404).json("No URL found");
+    }
+  } catch (error) {
+    console.error("Error processing short URL:", error);
+    return res.status(500).json("Server error");
   }
 });
 
