@@ -7,6 +7,12 @@ This is a simple and efficient URL Shortener application that allows you to conv
 You can access the deployed version of this application at:
 [https://url-shortener-ui.onrender.com/](https://url-shortener-ui.onrender.com/)
 
+## Images
+
+![](images/1.png)
+![](images/2.png)
+![](images/3.png)
+
 ## Features
 
 - Shorten long URLs to concise, easy-to-share links
